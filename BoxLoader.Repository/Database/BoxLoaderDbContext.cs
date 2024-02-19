@@ -5,11 +5,11 @@ namespace BoxLoader.Repository.Database;
 
 public class BoxLoaderDbContext : DbContext, IBoxLoaderDbContext
 {
-	public BoxLoaderDbContext(DbContextOptions options) : base(options)
-	{
-
-	}
-
 	public DbSet<Content> Contents { get; set; } = null!;
 	public DbSet<Box> Boxes { get; set; } = null!;
+
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.UseSqlServer("connString");
+	}
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxLoader", "BoxLoader\BoxLoader.csproj", "{017B7983-945D-4580-84B9-B995FB99E877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxLoader.Host", "BoxLoader\BoxLoader.Host.csproj", "{017B7983-945D-4580-84B9-B995FB99E877}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoxLoader.Service", "BoxLoader.Service\BoxLoader.Service.csproj", "{0B3241A5-28BA-4F89-B689-E11791C76738}"
 EndProject
