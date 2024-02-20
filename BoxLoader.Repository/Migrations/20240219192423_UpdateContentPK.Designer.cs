@@ -3,6 +3,7 @@ using BoxLoader.Repository.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BoxLoader.Repository.Migrations
 {
     [DbContext(typeof(BoxLoaderDbContext))]
-    partial class BoxLoaderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219192423_UpdateContentPK")]
+    partial class UpdateContentPK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

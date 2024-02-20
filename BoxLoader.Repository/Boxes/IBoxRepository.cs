@@ -6,4 +6,6 @@ public interface IBoxRepository
 {
 	Task<BoxModel> Get(string identifier);
 	Task<BoxModel> Insert(BoxModel box);
+	Task<BoxModel> Update(BoxModel box);
+	Task<List<ContentModel>> GetContentsById(string[] ids);
 }

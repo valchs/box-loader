@@ -19,8 +19,11 @@ namespace BoxLoader.Repository.Boxes
 
 		public async Task<BoxModel> Get(string identifier)
 		{
-			var boxes = _dbContext.Boxes.AsQueryable();
-			var result = await BoxInclude(boxes).FirstOrDefaultAsync(x => x.Identifier == identifier);
+			var result = await _dbContext.Boxes
+							.Include(x => x.Contents)
+							.AsQueryable()
+							.AsNoTracking()
+							.SingleOrDefaultAsync(x => x.Identifier == identifier);
 
 			return _mapper.Map<BoxModel>(result);
 		}
@@ -34,15 +37,48 @@ namespace BoxLoader.Repository.Boxes
 
 			var result = await _dbContext.Boxes.AddAsync(_mapper.Map<Box>(box));
 			await _dbContext.SaveChangesAsync();
+			this.DetachEntities();
 
 			return _mapper.Map<BoxModel>(result.Entity);
 		}
 
-		private IQueryable<Box> BoxInclude(IQueryable<Box> boxes)
+		public async Task<BoxModel> Update(BoxModel box)
 		{
-			boxes = boxes.Include(x => x.Contents);
+			var boxToUpdate = _dbContext.Boxes
+				.AsQueryable()
+				.AsNoTracking()
+				.SingleOrDefault(x => x.Identifier == box.Identifier);
 
-			return boxes;
+			if (boxToUpdate == null)
+			{
+				throw new ArgumentNullException(nameof(box));
+			}
+
+			var result = _dbContext.Boxes.Update(_mapper.Map<Box>(box));
+			await _dbContext.SaveChangesAsync();
+			this.DetachEntities();
+
+			return _mapper.Map<BoxModel>(result.Entity);
+		}
+
+		// NOTE: Should move it to ContentRepository, keeping here for simplicity
+		public async Task<List<ContentModel>> GetContentsById(string[] ids)
+		{
+			var result = await _dbContext.Contents
+							.AsQueryable()
+							.Where(x => ids.Contains(x.Isbn))
+							.ToListAsync();
+
+			return _mapper.Map<List<ContentModel>>(result);
+		}
+
+		public void DetachEntities()
+		{
+			var trackedEntries = _dbContext.ChangeTracker.Entries().ToList();
+			foreach (var trackedEntry in trackedEntries)
+			{
+				trackedEntry.State = EntityState.Detached;
+			}
 		}
 	}
 }

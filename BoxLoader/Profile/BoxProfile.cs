@@ -7,7 +7,7 @@ public class BoxProfile : AutoMapper.Profile
 {
 	public BoxProfile()
 	{
-		CreateMap<Box, BoxModel>();
-		CreateMap<Content, ContentModel>();
+		CreateMap<Box, BoxModel>().ReverseMap();
+		CreateMap<Content, ContentModel>().ReverseMap();
 	}
 }
