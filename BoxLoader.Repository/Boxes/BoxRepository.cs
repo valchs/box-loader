@@ -72,7 +72,7 @@ namespace BoxLoader.Repository.Boxes
 			return _mapper.Map<List<ContentModel>>(result);
 		}
 
-		public void DetachEntities()
+		private void DetachEntities()
 		{
 			var trackedEntries = _dbContext.ChangeTracker.Entries().ToList();
 			foreach (var trackedEntry in trackedEntries)

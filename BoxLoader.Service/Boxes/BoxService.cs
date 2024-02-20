@@ -14,6 +14,7 @@ public class BoxService : IBoxService
 
 	public async Task<BoxModel> Upsert(BoxModel box)
 	{
+		//NOTE: This exception handling is not good, I would change it in real world scenario
 		try
 		{
 			var existingBox = await this.Get(box.Identifier);
