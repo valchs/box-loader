@@ -49,7 +49,7 @@ public class BoxService : IBoxService
 	{
 		var contentIds = box.Contents.Select(x => x.Isbn).ToArray();
 		var existingContents = await _boxRepository.GetContentsById(contentIds);
-		var exsitingContentIds = existingContents.Select(x => x.Isbn).ToArray();
+		var exsitingContentIds = existingContents?.Select(x => x.Isbn).ToArray() ?? new string[] { };
 
 		box.Contents = box.Contents
 			.Where(x => !exsitingContentIds.Contains(x.Isbn))
